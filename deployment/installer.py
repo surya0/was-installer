@@ -7,12 +7,16 @@ import javax.xml.parsers.DocumentBuilderFactory as DocumentBuilderFactory
 import javax.xml.parsers.DocumentBuilder as DocumentBuilder
 import os
 import sys
-import AdminApp
-import AdminConfig
-import AdminTask
-import AdminControl
+#import AdminApp
+#import AdminConfig
+#import AdminTask
+#import AdminControl
 import AdminNodeManagement
-	
+
+global AdminControl
+global AdminTask
+global AdminConfig
+global AdminApp	
 ##########################################################################################
 #WAS Application class
 class WASapp:
@@ -42,7 +46,7 @@ class WASapp:
 
 	def isInstalled(self):
 		instapps = AdminApp.list()
-		instapplst = instapps.split('\r\n')
+		instapplst = instapps.split('\n')
 		for app in instapplst:
 			if app == self.appName:return 1
 		return 0
@@ -259,5 +263,3 @@ if __name__ == '__main__':
 			Make no Cluster Rollout, instead  just Save and Syncronize whatever the topology
 		'''
 		print message
-			
-	
