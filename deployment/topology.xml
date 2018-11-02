@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wastopology xmlns="http://www.gr.ibm.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.gr.ibm.com wastopology.xsd">
+	<cluster name="TradeCluster">
+		<application name="ServiceApplication" earfileptrn="ServiceApplication.ear" vhost="default_host"> <webserver name="webserver1" nodename="wl169044039078.pureapplication.ibmcloud.com-node"/>
+		</application>
+	</cluster>
+</wastopology>
