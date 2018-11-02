@@ -8,17 +8,19 @@ trap sigcatch INT TERM
 
 ################################################  DMGR Parameters  #################################################################
 
-DMGR_HOME="/opt/ibm/websphere/appserver/profiles/Dmgr01"
+DMGR_HOME="/opt/IBM/WebSphere/Profiles/DefaultDmgr01"
+CONNECTOR_HOST=$WASHOST
 CONNECTOR_TYPE="RMI"
 CONNECTOR_PORT=9809
 WSADMIN_HEAPSZ="-Xms256m -Xmx4096m"
-
+WAS_USERNAME="wsadmin"
+WAS_PASSWORD="404b0771"
 ################################################  Local Parameters  ################################################################
 
 CURRENTDIR="$( cd "$(dirname "$0")" ; pwd -P )"
 BINDIR="$CURRENTDIR/binaries"
 TOPOLOGYXML=$CURRENTDIR/topology.xml
-LOGDIR=$HOME/logs
+LOGDIR=$CURRENTDIR/logs
 PID=$$
 LOGFILE=$LOGDIR/installer.$PID.log
 
@@ -107,10 +109,12 @@ while [ $# -gt 0 ]
 do
 
 	ARG="$1"
-	if [[ $ARG == http:\/\/*   ]]
+	#if [[ $ARG == https:\/\/*   ]]
+	if [[ $ARG == *.ear  ]]
 	then	
-		log 'Downloading the EAR from ' $ARG
-		wget -a $LOGFILE -nv -P $BINDIR $ARG 
+		#log 'Downloading the EAR from ' $ARG
+		#wget -a $LOGFILE -nv -P $BINDIR $ARG 
+		cp -R $ARG $BINDIR
 		if [ $? -ne 0 ]
 		then
 			log 'Problem downloading file: ' $ARG
@@ -126,8 +130,5 @@ do
 	shift
 done
 
-
-$DMGR_HOME/bin/wsadmin.sh -lang jython -conntype $CONNECTOR_TYPE -port $CONNECTOR_PORT -javaoption "$WSADMIN_HEAPSZ" -f $CURRENTDIR/installer.py $FSSFLAG $BINDIR $TOPOLOGYXML | tee -a $LOGFILE
-
-
+$DMGR_HOME/bin/wsadmin.sh -lang jython -conntype $CONNECTOR_TYPE -host $CONNECTOR_HOST -port $CONNECTOR_PORT -user $WAS_USERNAME -password $WAS_PASSWORD -javaoption "-Dpython.path=/opt/IBM/WebSphere/Profiles/DefaultDmgr01:/opt/IBM/WebSphere/Profiles" -f $CURRENTDIR/installer.py $FSSFLAG $BINDIR $TOPOLOGYXML | tee -a $LOGFILE
 #set +x
