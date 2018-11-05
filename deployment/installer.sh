@@ -13,8 +13,8 @@ CONNECTOR_HOST=$WASHOST
 CONNECTOR_TYPE="RMI"
 CONNECTOR_PORT=9809
 WSADMIN_HEAPSZ="-Xms256m -Xmx4096m"
-WAS_USERNAME="wsadmin"
-WAS_PASSWORD="404b0771"
+WAS_USERNAME="to be modified"
+WAS_PASSWORD=" to be modified"
 ################################################  Local Parameters  ################################################################
 
 CURRENTDIR="$( cd "$(dirname "$0")" ; pwd -P )"
